@@ -1,6 +1,6 @@
 name: Call Automatic Changelog Generator for tag Workflow
 
-on:  
+on:
   push:
     tags:
       - 'v*'

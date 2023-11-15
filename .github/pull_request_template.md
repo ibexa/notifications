@@ -2,7 +2,7 @@
 |--------------------------------|-------------------------------------------------------|
 | **JIRA issue**                 | [IBX-XXXXX](https://issues.ibexa.co/browse/IBX-XXXXX) |
 | **Type**                       | feature/bug/improvement                               |
-| **Target eZ Platform version** | `v4.x` - please update `x` accordingly                |
+| **Target eZ Platform version** | `v4.6`                |
 | **BC breaks**                  | yes/no                                                |
 | **Doc needed**                 | yes/no                                                |
 

@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Notifications\SubscriptionResolver\ConfigBasedSubscriptionResolver:
+        tags:
+            - ibexa.notifications.subscription_resolver
+
+    Ibexa\Notifications\SubscriptionResolver\ChainSubscriptionResolver:
+        arguments:
+            $resolvers: !tagged_iterator ibexa.notifications.subscription_resolver
+
+    Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface: '@Ibexa\Notifications\SubscriptionResolver\ChainSubscriptionResolver'
