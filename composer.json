@@ -1,12 +1,9 @@
 {
   "name": "ibexa/notifications",
-  "license": "proprietary",
+  "license": "GPL-2.0-only",
   "type": "ibexa-bundle",
   "keywords": [
     "ibexa-dxp"
-  ],
-  "repositories": [
-    { "type": "composer", "url": "https://updates.ibexa.co" }
   ],
   "require": {
     "php": "^7.4 || ^8.0",
