@@ -1,2 +1,3 @@
 imports:
-    - { resource: services/**/*.yaml }
+    - { resource: services/papi.yaml }
+    - { resource: services/subscription_resolver.yaml }
