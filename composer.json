@@ -1,27 +1,26 @@
 {
   "name": "ibexa/notifications",
-  "license": "proprietary",
+  "license": "(GPL-2.0-only or proprietary)",
   "type": "ibexa-bundle",
   "keywords": [
     "ibexa-dxp"
   ],
-  "repositories": [
-    { "type": "composer", "url": "https://updates.ibexa.co" }
-  ],
   "require": {
     "php": "^7.4 || ^8.0",
-    "ibexa/core": "^4.5.x-dev",
+    "ibexa/core": "~4.6.x-dev",
     "symfony/config": "^5.4",
     "symfony/dependency-injection": "^5.4",
     "symfony/event-dispatcher": "^5.4",
     "symfony/event-dispatcher-contracts": "^2.2",
     "symfony/http-foundation": "^5.4",
     "symfony/http-kernel": "^5.4",
-    "symfony/yaml": "^5.4"
+    "symfony/yaml": "^5.4",
+    "symfony/notifier": "^5.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^9",
     "ibexa/code-style": "^1.1",
+    "ibexa/doctrine-schema": "~4.6.x-dev",
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-phpunit": "^1.3",
     "phpstan/phpstan-symfony": "^1.3",
@@ -57,7 +56,10 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-main": "4.5.x-dev"
+      "dev-main": "4.6.x-dev"
     }
+  },
+  "config": {
+    "allow-plugins": false
   }
 }
