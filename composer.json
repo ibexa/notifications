@@ -1,6 +1,6 @@
 {
   "name": "ibexa/notifications",
-  "license": "GPL-2.0-only",
+  "license": "(GPL-2.0-only or proprietary)",
   "type": "ibexa-bundle",
   "keywords": [
     "ibexa-dxp"
