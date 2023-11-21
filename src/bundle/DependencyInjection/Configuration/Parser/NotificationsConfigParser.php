@@ -64,7 +64,7 @@ final class NotificationsConfigParser extends AbstractParser
     /**
      * @param array<string, mixed> $config
      */
-    public function postMap(array $config, ContextualizerInterface $contextualizer)
+    public function postMap(array $config, ContextualizerInterface $contextualizer): void
     {
         foreach (self::MAPPED_SETTINGS as $setting) {
             $contextualizer->mapConfigArray(sprintf('notifications.%s', $setting), $config);
