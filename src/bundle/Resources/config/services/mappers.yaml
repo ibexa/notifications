@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Notifications\Mapper\NotificationMapper: ~
+
+    Ibexa\Notifications\Mapper\NotificationMapperInterface: '@Ibexa\Notifications\Mapper\NotificationMapper'
+
+    Ibexa\Notifications\Mapper\RecipientMapper: ~
+
+    Ibexa\Notifications\Mapper\RecipientMapperInterface: '@Ibexa\Notifications\Mapper\RecipientMapper'

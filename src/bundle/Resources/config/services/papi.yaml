@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Notifications\Service\NotificationService: ~
+
+    Ibexa\Contracts\Notifications\Service\NotificationServiceInterface: '@Ibexa\Notifications\Service\NotificationService'
