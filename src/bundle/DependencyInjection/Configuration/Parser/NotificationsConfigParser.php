@@ -49,7 +49,7 @@ final class NotificationsConfigParser extends AbstractParser
         $settings = $scopeSettings['notifications'];
 
         foreach (self::MAPPED_SETTINGS as $key) {
-            if (empty($settings[$key])) {
+            if (!isset($settings[$key])) {
                 continue;
             }
 
