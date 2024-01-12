@@ -27,7 +27,7 @@ final class ConfigBasedSubscriptionResolver implements SubscriptionResolverInter
         $notificationType = $notification->getType();
 
         if (!array_key_exists($notificationType, $config)) {
-            yield;
+            return;
         }
 
         foreach ($config[$notificationType]['channels'] as $channel) {
