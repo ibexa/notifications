@@ -3,5 +3,5 @@
 ibexa:
     system:
         default:
-            notifications:
+            notifier:
                 subscriptions: []
