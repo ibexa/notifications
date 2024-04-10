@@ -18,8 +18,14 @@ final class NotificationsConfigParser extends AbstractParser
 
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
+        /*
+         * Node name has been changed from "notifications" to "notifier" due to
+         * collision with Admin UI notifications parser.
+         *
+         * TODO: Change the name back to "notifications" in the next major version.
+         */
         $nodeBuilder
-            ->arrayNode('notifications')
+            ->arrayNode('notifier')
                 ->children()
                     ->arrayNode('subscriptions')
                         ->info('Mandatory system notifications. Users cannot opt-out from below subscriptions.')
@@ -42,11 +48,11 @@ final class NotificationsConfigParser extends AbstractParser
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
-        if (empty($scopeSettings['notifications'])) {
+        if (empty($scopeSettings['notifier'])) {
             return;
         }
 
-        $settings = $scopeSettings['notifications'];
+        $settings = $scopeSettings['notifier'];
 
         foreach (self::MAPPED_SETTINGS as $key) {
             if (!isset($settings[$key])) {
