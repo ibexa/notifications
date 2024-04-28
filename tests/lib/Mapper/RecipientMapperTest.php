@@ -32,7 +32,7 @@ final class RecipientMapperTest extends TestCase
             new SymfonyRecipientAdapter($recipient)
         );
 
-        $this->assertSame($recipient, $symfonyRecipient);
+        self::assertSame($recipient, $symfonyRecipient);
     }
 
     public function testMapToSymfonyRecipientThrowsExceptionOnInvalidRecipient(): void
