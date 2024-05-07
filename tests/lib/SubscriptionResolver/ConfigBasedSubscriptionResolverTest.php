@@ -54,13 +54,13 @@ final class ConfigBasedSubscriptionResolverTest extends TestCase
         $subscriptions = $this->resolver->resolve($notification);
         $subscriptionsArray = iterator_to_array($subscriptions);
 
-        $this->assertCount(count($expectedChannels), $subscriptionsArray);
-        $this->assertContainsOnlyInstancesOf(ChannelSubscription::class, $subscriptionsArray);
+        self::assertCount(count($expectedChannels), $subscriptionsArray);
+        self::assertContainsOnlyInstancesOf(ChannelSubscription::class, $subscriptionsArray);
 
         $i = 0;
         foreach ($subscriptionsArray as $channelSubscription) {
-            $this->assertSame($notificationType, $channelSubscription->getNotificationType());
-            $this->assertSame($expectedChannels[$i++], $channelSubscription->getChannel());
+            self::assertSame($notificationType, $channelSubscription->getNotificationType());
+            self::assertSame($expectedChannels[$i++], $channelSubscription->getChannel());
         }
     }
 

@@ -28,7 +28,7 @@ final class ChainSubscriptionResolverTest extends TestCase
         $notification = $this->createMock(NotificationInterface::class);
         $channels = $subscriptionResolver->resolve($notification);
 
-        $this->assertSame($expectedChannels, iterator_to_array($channels));
+        self::assertSame($expectedChannels, iterator_to_array($channels));
     }
 
     /**

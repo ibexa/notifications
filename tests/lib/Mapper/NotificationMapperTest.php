@@ -32,7 +32,7 @@ final class NotificationMapperTest extends TestCase
             new SymfonyNotificationAdapter($notification)
         );
 
-        $this->assertSame($notification, $symfonyNotification);
+        self::assertSame($notification, $symfonyNotification);
     }
 
     public function testMapToSymfonyNotificationThrowsExceptionOnInvalidNotification(): void
