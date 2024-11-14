@@ -20,6 +20,8 @@ final class IbexaNotificationsExtension extends Extension implements PrependExte
 {
     /**
      * @param array<string, mixed> $configs
+     *
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
