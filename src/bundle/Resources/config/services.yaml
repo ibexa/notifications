@@ -2,3 +2,4 @@ imports:
     - { resource: services/mappers.yaml }
     - { resource: services/papi.yaml }
     - { resource: services/subscription_resolver.yaml }
+    - { resource: services/system_notifications.yaml }
