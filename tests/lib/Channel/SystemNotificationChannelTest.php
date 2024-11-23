@@ -42,7 +42,7 @@ final class SystemNotificationChannelTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForSupports
+     * @dataProvider dataProviderForTestSupports
      */
     public function testSupports(Notification $notification, RecipientInterface $recipient, bool $expectedResult): void
     {
@@ -52,7 +52,7 @@ final class SystemNotificationChannelTest extends TestCase
     /**
      * @return iterable<string, array{\Symfony\Component\Notifier\Notification\Notification, \Symfony\Component\Notifier\Recipient\RecipientInterface, bool}>
      */
-    public function dataProviderForSupports(): iterable
+    public function dataProviderForTestSupports(): iterable
     {
         yield 'supported' => [
             $this->createSupportedNotification(),
@@ -83,11 +83,8 @@ final class SystemNotificationChannelTest extends TestCase
         $this->notificationService
             ->expects(self::once())
             ->method('createNotification')
-            ->willReturnCallback(function (CreateStruct $createStruct) use ($expectedCreateStruct): SystemNotification {
-                $this->assertEquals($expectedCreateStruct, $createStruct);
-
-                return new SystemNotification();
-            });
+            ->with($expectedCreateStruct)
+            ->willReturn(new SystemNotification());
 
         $user = $this->createMock(UserReference::class);
         $user->method('getUserId')->willReturn(self::EXAMPLE_USER_ID);
