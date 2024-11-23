@@ -9,9 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Notifications\Value\Recipent;
 
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserReference;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 
-final class UserRecipient implements EmailRecipientInterface
+final class UserRecipient implements EmailRecipientInterface, UserRecipientInterface
 {
     private User $user;
 
@@ -23,5 +24,10 @@ final class UserRecipient implements EmailRecipientInterface
     public function getEmail(): string
     {
         return $this->user->email;
+    }
+
+    public function getUser(): UserReference
+    {
+        return $this->user;
     }
 }

@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Notifications\SystemNotification\SystemNotificationChannel:
+        tags:
+            -   name: notifier.channel
+                channel: ibexa
+
+    Ibexa\Notifications\SystemNotification\SystemNotificationRenderer:
+        tags:
+            -   name: ibexa.notification.renderer
+                alias: system
+
