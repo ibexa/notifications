@@ -14,7 +14,8 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 final class NotificationsConfigParser extends AbstractParser
 {
-    public const MAPPED_SETTINGS = ['subscriptions'];
+    /** @phpstan-var list<string> */
+    public const array MAPPED_SETTINGS = ['subscriptions'];
 
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
