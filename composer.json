@@ -8,13 +8,13 @@
     "require": {
         "php": " >=8.3",
         "ibexa/core": "~5.0.x-dev",
-        "symfony/config": "^5.4",
-        "symfony/dependency-injection": "^5.4",
-        "symfony/event-dispatcher": "^5.4",
-        "symfony/http-foundation": "^5.4",
-        "symfony/http-kernel": "^5.4",
-        "symfony/notifier": "^5.4",
-        "symfony/yaml": "^5.4"
+        "symfony/config": "^6.4",
+        "symfony/dependency-injection": "^6.4",
+        "symfony/event-dispatcher": "^6.4",
+        "symfony/http-foundation": "^6.4",
+        "symfony/http-kernel": "^6.4",
+        "symfony/notifier": "^6.4",
+        "symfony/yaml": "^6.4"
     },
     "require-dev": {
         "ibexa/code-style": "~2.0.0",
