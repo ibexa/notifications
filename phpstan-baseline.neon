@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Ibexa\\Contracts\\Notifications\\SystemNotification\\SystemMessage\:\:getRecipientId\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/contracts/SystemNotification/SystemMessage.php
+
+		-
+			message: '#^Parameter \#1 \$channels of method Symfony\\Component\\Notifier\\Notification\\Notification\:\:channels\(\) expects list\<string\>, non\-empty\-array\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Service/NotificationService.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with Ibexa\\Contracts\\Notifications\\SystemNotification\\SystemMessage will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/integration/Notifications/SystemNotification/SystemNotificationTest.php
