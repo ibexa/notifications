@@ -17,13 +17,18 @@ final class NotificationMapper implements NotificationMapperInterface
 {
     public function mapToSymfonyNotification(NotificationInterface $notification): Notification
     {
-        if (!$notification instanceof SymfonyNotificationAdapter) {
-            throw new InvalidArgumentException(
-                '$notification',
-                sprintf('This mapper only supports %s objects', SymfonyNotificationAdapter::class),
-            );
+        if ($notification instanceof Notification) {
+            // Notification is already Symfony compatible
+            return $notification;
         }
 
-        return $notification->getNotification();
+        if ($notification instanceof SymfonyNotificationAdapter) {
+            return $notification->getNotification();
+        }
+
+        throw new InvalidArgumentException(
+            '$notification',
+            sprintf('This mapper only supports %s or %s objects', Notification::class, SymfonyNotificationAdapter::class),
+        );
     }
 }
