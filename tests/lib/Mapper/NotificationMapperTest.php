@@ -24,13 +24,22 @@ final class NotificationMapperTest extends TestCase
         $this->mapper = new NotificationMapper();
     }
 
-    public function testMapToSymfonyNotification(): void
+    public function testMapToSymfonyNotificationForSymfonyAdapter(): void
     {
         $notification = $this->createMock(Notification::class);
 
         $symfonyNotification = $this->mapper->mapToSymfonyNotification(
             new SymfonyNotificationAdapter($notification)
         );
+
+        $this->assertSame($notification, $symfonyNotification);
+    }
+
+    public function testMapToSymfonyNotificationForNativeNotification(): void
+    {
+        $notification = new NativeNotification();
+
+        $symfonyNotification = $this->mapper->mapToSymfonyNotification($notification);
 
         $this->assertSame($notification, $symfonyNotification);
     }
