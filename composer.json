@@ -13,8 +13,11 @@
         "symfony/event-dispatcher": "^7.2",
         "symfony/http-foundation": "^7.2",
         "symfony/http-kernel": "^7.2",
+        "symfony/mailer": "^7.2",
         "symfony/notifier": "^7.2",
-        "symfony/yaml": "^7.2"
+        "symfony/yaml": "^7.2",
+        "twig/cssinliner-extra": "^3.21",
+        "twig/inky-extra": "^3.21"
     },
     "require-dev": {
         "ibexa/code-style": "~2.0.0",
