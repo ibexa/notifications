@@ -19,6 +19,6 @@
 
 {% block message %}
     {% block content %}
-        <p title="{{ content|default('') }}" class="description__text">{{ content|default('') }}</p>
+        <p title="{{ content|default('') }}" class="description__text{% if content|length > 100 %} description__text--ellipsis{% endif %}">{{ content|default('') }}</p>
     {% endblock %}
 {% endblock %}
