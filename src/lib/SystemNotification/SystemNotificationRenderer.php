@@ -50,7 +50,7 @@ final class SystemNotificationRenderer implements NotificationRenderer, TypedNot
         $templateToExtend = '@ibexadesign/account/notifications/list_item.html.twig';
 
         $currentRequest = $this->requestStack->getCurrentRequest();
-        if ($currentRequest && $currentRequest->attributes->getBoolean('render_all')) {
+        if ($currentRequest !== null && $currentRequest->attributes->getBoolean('render_all')) {
             $templateToExtend = '@ibexadesign/account/notifications/list_item_all.html.twig';
         }
 
