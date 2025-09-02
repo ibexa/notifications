@@ -47,11 +47,11 @@ final class SystemNotificationRenderer implements NotificationRenderer, TypedNot
 
     public function render(Notification $notification): string
     {
-        $templateToExtend = '@ibexadesign/account/notifications/list_item.html.twig';
+        $baseTemplate = '@ibexadesign/account/notifications/list_item.html.twig';
 
         $currentRequest = $this->requestStack->getCurrentRequest();
         if ($currentRequest !== null && $currentRequest->attributes->getBoolean('render_all')) {
-            $templateToExtend = '@ibexadesign/account/notifications/list_item_all.html.twig';
+            $baseTemplate = '@ibexadesign/account/notifications/list_item_all.html.twig';
         }
 
         return $this->twig->render(
@@ -62,7 +62,7 @@ final class SystemNotificationRenderer implements NotificationRenderer, TypedNot
                 'content' => $notification->data[self::KEY_CONTENT] ?? null,
                 'subject' => $notification->data[self::KEY_SUBJECT] ?? null,
                 'created_at' => $notification->created,
-                'template_to_extend' => $templateToExtend,
+                'base_template' => $baseTemplate,
             ]
         );
     }
@@ -81,11 +81,11 @@ final class SystemNotificationRenderer implements NotificationRenderer, TypedNot
 
     public function getTypeLabel(): string
     {
-        return /** @Desc("System notification") */
-            $this->translator->trans(
-                'notifications.notification.system.label',
-                [],
-                'ibexa_notifications'
-            );
+        return $this->translator->trans(
+            /** @Desc("System notification") */
+            'notifications.notification.system.label',
+            [],
+            'ibexa_notifications'
+        );
     }
 }
