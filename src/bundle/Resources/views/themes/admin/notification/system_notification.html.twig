@@ -1,4 +1,4 @@
-{% extends '@ibexadesign/account/notifications/list_item.html.twig' %}
+{% extends base_template %}
 
 {% trans_default_domain 'ibexa_notification' %}
 
@@ -18,9 +18,7 @@
 {% endblock %}
 
 {% block message %}
-    {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notifications-modal__description' } %}
-        {% block content %}
-            <p class="description__text">{{ content|default('') }}</p>
-        {% endblock %}
-    {% endembed %}
+    {% block content %}
+        <p title="{{ content|default('') }}" class="description__text{% if content|length > 100 %} description__text--ellipsis{% endif %}">{{ content|default('') }}</p>
+    {% endblock %}
 {% endblock %}
