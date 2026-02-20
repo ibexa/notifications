@@ -10,13 +10,13 @@ on:
 jobs:
     cs-fix:
         name: Run code style check
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-24.04"
         strategy:
             matrix:
                 php:
                     - '8.3'
         steps:
-            -   uses: actions/checkout@v4
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -37,7 +37,7 @@ jobs:
         name: Deptrac
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v4
+            -   uses: actions/checkout@v6
             -   name: Deptrac
                 uses: smoench/deptrac-action@master
 
@@ -77,7 +77,7 @@ jobs:
 
     tests:
         name: Tests
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-24.04"
         timeout-minutes: 10
 
         strategy:
@@ -85,9 +85,10 @@ jobs:
             matrix:
                 php:
                     - '8.3'
+                    - '8.4'
 
         steps:
-            -   uses: actions/checkout@v4
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -115,7 +116,7 @@ jobs:
         needs: tests
         services:
             postgres:
-                image: postgres:10
+                image: postgres:18
                 ports:
                     - 5432
                 env:
@@ -135,9 +136,10 @@ jobs:
             matrix:
                 php:
                     - '8.3'
+                    - '8.4'
 
         steps:
-            -   uses: actions/checkout@v4
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -178,7 +180,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
                     --tmpfs=/var/lib/mysql
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-24.04"
         timeout-minutes: 10
 
         strategy:
@@ -186,9 +188,10 @@ jobs:
             matrix:
                 php:
                     - '8.3'
+                    - '8.4'
 
         steps:
-            -   uses: actions/checkout@v4
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
