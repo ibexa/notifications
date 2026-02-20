@@ -10,13 +10,13 @@ on:
 jobs:
     cs-fix:
         name: Run code style check
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-24.04"
         strategy:
             matrix:
                 php:
                     - '8.1'
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -26,7 +26,7 @@ jobs:
                     extensions: 'pdo_sqlite, gd'
                     tools: cs2pr
 
-            -   uses: ramsey/composer-install@v2
+            -   uses: ramsey/composer-install@v3
                 with:
                     dependency-versions: "highest"
 
@@ -37,13 +37,13 @@ jobs:
         name: Deptrac
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v6
             -   name: Deptrac
                 uses: smoench/deptrac-action@master
 
     tests:
         name: Tests
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-24.04"
         timeout-minutes: 10
 
         strategy:
@@ -51,11 +51,11 @@ jobs:
             matrix:
                 php:
                     - '7.4'
-                    - '8.1'
-                    - '8.2'
+                    - '8.3'
+                    - '8.4'
 
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -65,7 +65,7 @@ jobs:
                     extensions: pdo_sqlite, gd
                     tools: cs2pr
 
-            -   uses: ramsey/composer-install@v2
+            -   uses: ramsey/composer-install@v3
                 with:
                     dependency-versions: "highest"
                     composer-options: "--prefer-dist --no-progress --no-suggest"
@@ -84,7 +84,7 @@ jobs:
         needs: tests
         services:
             postgres:
-                image: postgres:10
+                image: postgres:18
                 ports:
                     - 5432
                 env:
@@ -104,11 +104,11 @@ jobs:
             matrix:
                 php:
                     - '7.4'
-                    - '8.1'
-                    - '8.2'
+                    - '8.3'
+                    - '8.4'
 
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -118,7 +118,7 @@ jobs:
                     extensions: pdo_pgsql, gd
                     tools: cs2pr
 
-            -   uses: ramsey/composer-install@v2
+            -   uses: ramsey/composer-install@v3
                 with:
                     dependency-versions: "highest"
 
@@ -149,7 +149,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
                     --tmpfs=/var/lib/mysql
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-24.04"
         timeout-minutes: 10
 
         strategy:
@@ -157,11 +157,11 @@ jobs:
             matrix:
                 php:
                     - '7.4'
-                    - '8.1'
-                    - '8.2'
+                    - '8.3'
+                    - '8.4'
 
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v6
 
             -   name: Setup PHP Action
                 uses: shivammathur/setup-php@v2
@@ -171,7 +171,7 @@ jobs:
                     extensions: pdo_mysql, gd, redis
                     tools: cs2pr
 
-            -   uses: ramsey/composer-install@v2
+            -   uses: ramsey/composer-install@v3
                 with:
                     dependency-versions: "highest"
 
