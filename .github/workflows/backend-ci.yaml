@@ -145,7 +145,7 @@ jobs:
             -   name: Run integration test suite vs Postgresql
                 run: composer run-script --timeout=600 test -- --testsuite integration
                 env:
-                    DATABASE_URL: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb?serverVersion=10"
+                    DATABASE_URL: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb?serverVersion=14"
 
     integration-tests-mysql:
         name: MySQL integration tests
