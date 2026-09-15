@@ -1,45 +1,44 @@
-name: Backend build
+name: Backend CI
 
 on:
     push:
         branches:
-            - main
             - '[0-9]+.[0-9]+'
     pull_request: ~
+    workflow_dispatch: ~
 
 jobs:
     cs-fix:
         name: Run code style check
-        runs-on: "ubuntu-24.04"
+        runs-on: "ubuntu-26.04"
         strategy:
             matrix:
                 php:
                     - '8.3'
         steps:
-            -   uses: actions/checkout@v6
+            -   uses: actions/checkout@v7
 
-            -   name: Setup PHP Action
-                uses: shivammathur/setup-php@v2
+            -   uses: ibexa/gh-workflows/actions/composer-install@main
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: none
-                    extensions: 'pdo_sqlite, gd'
-                    tools: cs2pr
-
-            -   uses: ramsey/composer-install@v3
-                with:
-                    dependency-versions: highest
+                    gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+                    gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+                    satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+                    satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
             -   name: Run code style check
-                run: composer run-script check-cs -- --format=checkstyle | cs2pr
+                shell: bash
+                run: |
+                    set -euo pipefail
+                    composer run-script check-cs -- --format=checkstyle | cs2pr
 
     deptrac:
         name: Deptrac
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-26.04
         steps:
-            -   uses: actions/checkout@v6
+            -   uses: actions/checkout@v7
             -   name: Deptrac
-                uses: smoench/deptrac-action@master
+                uses: smoench/deptrac-action@1.0.2
 
     rector:
         name: Run rector
@@ -63,7 +62,7 @@ jobs:
 
     tests:
         name: Tests
-        runs-on: "ubuntu-24.04"
+        runs-on: "ubuntu-26.04"
         timeout-minutes: 10
 
         strategy:
@@ -74,19 +73,15 @@ jobs:
                     - '8.4'
 
         steps:
-            -   uses: actions/checkout@v6
+            -   uses: actions/checkout@v7
 
-            -   name: Setup PHP Action
-                uses: shivammathur/setup-php@v2
+            -   uses: ibexa/gh-workflows/actions/composer-install@main
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: none
-                    extensions: pdo_sqlite, gd
-                    tools: cs2pr
-
-            -   uses: ramsey/composer-install@v3
-                with:
-                    dependency-versions: highest
+                    gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+                    gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+                    satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+                    satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
             -   name: Setup problem matchers for PHPUnit
                 run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -114,7 +109,7 @@ jobs:
                     --health-timeout 5s
                     --health-retries 5
                     --tmpfs /var/lib/postgres
-        runs-on: "ubuntu-22.04"
+        runs-on: "ubuntu-26.04"
         timeout-minutes: 10
 
         strategy:
@@ -125,19 +120,16 @@ jobs:
                     - '8.4'
 
         steps:
-            -   uses: actions/checkout@v6
+            -   uses: actions/checkout@v7
 
-            -   name: Setup PHP Action
-                uses: shivammathur/setup-php@v2
+            -   uses: ibexa/gh-workflows/actions/composer-install@main
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: none
-                    extensions: pdo_pgsql, gd
-                    tools: cs2pr
-
-            -   uses: ramsey/composer-install@v3
-                with:
-                    dependency-versions: highest
+                    php-extensions: pdo_pgsql, gd
+                    gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+                    gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+                    satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+                    satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
             -   name: Setup problem matchers for PHPUnit
                 run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -166,7 +158,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
                     --tmpfs=/var/lib/mysql
-        runs-on: "ubuntu-24.04"
+        runs-on: "ubuntu-26.04"
         timeout-minutes: 10
 
         strategy:
@@ -177,19 +169,16 @@ jobs:
                     - '8.4'
 
         steps:
-            -   uses: actions/checkout@v6
+            -   uses: actions/checkout@v7
 
-            -   name: Setup PHP Action
-                uses: shivammathur/setup-php@v2
+            -   uses: ibexa/gh-workflows/actions/composer-install@main
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: none
-                    extensions: pdo_mysql, gd, redis
-                    tools: cs2pr
-
-            -   uses: ramsey/composer-install@v3
-                with:
-                    dependency-versions: highest
+                    php-extensions: pdo_mysql, gd, redis
+                    gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+                    gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+                    satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+                    satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
             -   name: Setup problem matchers for PHPUnit
                 run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
