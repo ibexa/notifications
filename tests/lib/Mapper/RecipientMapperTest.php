@@ -26,7 +26,7 @@ final class RecipientMapperTest extends TestCase
 
     public function testMapToSymfonyRecipient(): void
     {
-        $recipient = $this->createMock(Recipient::class);
+        $recipient = $this->createStub(Recipient::class);
 
         $symfonyRecipient = $this->mapper->mapToSymfonyRecipient(
             new SymfonyRecipientAdapter($recipient)
@@ -40,7 +40,7 @@ final class RecipientMapperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $this->mapper->mapToSymfonyRecipient(
-            $this->createMock(RecipientInterface::class)
+            $this->createStub(RecipientInterface::class)
         );
     }
 }
