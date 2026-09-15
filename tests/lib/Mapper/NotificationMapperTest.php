@@ -26,7 +26,7 @@ final class NotificationMapperTest extends TestCase
 
     public function testMapToSymfonyNotificationForSymfonyAdapter(): void
     {
-        $notification = $this->createMock(Notification::class);
+        $notification = $this->createStub(Notification::class);
 
         $symfonyNotification = $this->mapper->mapToSymfonyNotification(
             new SymfonyNotificationAdapter($notification)
@@ -49,7 +49,7 @@ final class NotificationMapperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $this->mapper->mapToSymfonyNotification(
-            $this->createMock(NotificationInterface::class)
+            $this->createStub(NotificationInterface::class)
         );
     }
 }
