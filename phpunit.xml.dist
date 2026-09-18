@@ -6,6 +6,7 @@
         backupStaticProperties="false"
         bootstrap="vendor/autoload.php"
         failOnWarning="true"
+        failOnNotice="true"
         failOnDeprecation="true"
         displayDetailsOnTestsThatTriggerDeprecations="true"
         cacheDirectory=".phpunit.cache"
