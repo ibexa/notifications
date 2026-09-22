@@ -36,7 +36,7 @@ final class SystemNotificationChannelTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->repository = $this->createStub(Repository::class);
+        $this->repository = self::createStub(Repository::class);
         $this->notificationService = $this->createMock(NotificationService::class);
 
         $this->channel = new SystemNotificationChannel($this->repository, $this->notificationService);
@@ -47,10 +47,10 @@ final class SystemNotificationChannelTest extends TestCase
     {
         $notification = $supportedNotification
             ? $this->createSupportedNotification()
-            : $this->createStub(Notification::class);
+            : self::createStub(Notification::class);
         $recipient = $supportedRecipient
             ? $this->createSupportedRecipient()
-            : $this->createStub(RecipientInterface::class);
+            : self::createStub(RecipientInterface::class);
 
         self::assertEquals($expectedResult, $this->channel->supports($notification, $recipient));
     }
