@@ -30,7 +30,7 @@ final class ChainSubscriptionResolverTest extends TestCase
 
         $subscriptionResolver = new ChainSubscriptionResolver($resolvers);
 
-        $notification = $this->createStub(NotificationInterface::class);
+        $notification = self::createStub(NotificationInterface::class);
         $channels = $subscriptionResolver->resolve($notification);
 
         self::assertSame($expectedChannels, iterator_to_array($channels));
