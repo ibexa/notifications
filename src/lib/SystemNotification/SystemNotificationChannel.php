@@ -24,18 +24,23 @@ final class SystemNotificationChannel implements ChannelInterface
 
     private NotificationService $notificationService;
 
-    public function __construct(Repository $repository, NotificationService $notificationService)
-    {
+    public function __construct(
+        Repository $repository,
+        NotificationService $notificationService
+    ) {
         $this->repository = $repository;
         $this->notificationService = $notificationService;
     }
 
     /**
-     * @param \Symfony\Component\Notifier\Notification\Notification&\Ibexa\Contracts\Notifications\SystemNotification\SystemNotificationInterface $notification
-     * @param \Ibexa\Contracts\Notifications\Value\Recipent\UserRecipientInterface $recipient
+     * @param Notification&SystemNotificationInterface $notification
+     * @param UserRecipientInterface $recipient
      */
-    public function notify(Notification $notification, RecipientInterface $recipient, ?string $transportName = null): void
-    {
+    public function notify(
+        Notification $notification,
+        RecipientInterface $recipient,
+        ?string $transportName = null
+    ): void {
         $message = $notification->asSystemNotification($recipient, $transportName);
         if ($message === null) {
             return;
@@ -56,8 +61,10 @@ final class SystemNotificationChannel implements ChannelInterface
         }
     }
 
-    public function supports(Notification $notification, RecipientInterface $recipient): bool
-    {
+    public function supports(
+        Notification $notification,
+        RecipientInterface $recipient
+    ): bool {
         return $notification instanceof SystemNotificationInterface && $recipient instanceof UserRecipientInterface;
     }
 }
