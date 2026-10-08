@@ -17,6 +17,7 @@ use Ibexa\Contracts\Notifications\SystemNotification\SystemMessage;
 use Ibexa\Contracts\Notifications\SystemNotification\SystemNotificationInterface;
 use Ibexa\Contracts\Notifications\Value\Recipent\UserRecipientInterface;
 use Ibexa\Notifications\SystemNotification\SystemNotificationChannel;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
@@ -25,10 +26,10 @@ final class SystemNotificationChannelTest extends TestCase
 {
     private const EXAMPLE_USER_ID = 12;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var Repository&MockObject */
     private Repository $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var NotificationService&MockObject */
     private NotificationService $notificationService;
 
     private SystemNotificationChannel $channel;
@@ -44,13 +45,16 @@ final class SystemNotificationChannelTest extends TestCase
     /**
      * @dataProvider dataProviderForTestSupports
      */
-    public function testSupports(Notification $notification, RecipientInterface $recipient, bool $expectedResult): void
-    {
+    public function testSupports(
+        Notification $notification,
+        RecipientInterface $recipient,
+        bool $expectedResult
+    ): void {
         self::assertEquals($expectedResult, $this->channel->supports($notification, $recipient));
     }
 
     /**
-     * @return iterable<string, array{\Symfony\Component\Notifier\Notification\Notification, \Symfony\Component\Notifier\Recipient\RecipientInterface, bool}>
+     * @return iterable<string, array{Notification, RecipientInterface, bool}>
      */
     public function dataProviderForTestSupports(): iterable
     {
@@ -99,7 +103,7 @@ final class SystemNotificationChannelTest extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Notifier\Notification\Notification&\Ibexa\Contracts\Notifications\SystemNotification\SystemNotificationInterface
+     * @return Notification&SystemNotificationInterface
      */
     private function createSupportedNotification(?SystemMessage $message = null): Notification
     {

@@ -9,11 +9,15 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Notifications\Service;
 
 use Ibexa\Contracts\Notifications\Value\NotificationInterface;
+use Ibexa\Contracts\Notifications\Value\RecipientInterface;
 
 interface NotificationServiceInterface
 {
     /**
-     * @param array<\Ibexa\Contracts\Notifications\Value\RecipientInterface> $recipients
+     * @param array<RecipientInterface> $recipients
      */
-    public function send(NotificationInterface $notification, array $recipients = []): void;
+    public function send(
+        NotificationInterface $notification,
+        array $recipients = []
+    ): void;
 }

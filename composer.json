@@ -18,12 +18,13 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
-        "ibexa/code-style": "^1.1",
+        "ibexa/code-style": "~2.3.1",
         "ibexa/doctrine-schema": "~4.6.x-dev",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
-        "qossmic/deptrac-shim": "^0.24.0 || ^1.0.2"
+        "qossmic/deptrac-shim": "^0.24.0 || ^1.0.2",
+        "ibexa/doctrine-migrations": "~4.6.x-dev"
     },
     "autoload": {
         "psr-4": {

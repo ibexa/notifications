@@ -12,19 +12,21 @@ use Ibexa\Contracts\Notifications\Value\NotificationInterface;
 
 final class ChainSubscriptionResolver implements SubscriptionResolverInterface
 {
-    /** @var iterable<\Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface> */
+    /** @var iterable<SubscriptionResolverInterface> */
     private iterable $resolvers;
 
     /**
-     * @param iterable<\Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface> $resolvers
+     * @param iterable<SubscriptionResolverInterface> $resolvers
      */
     public function __construct(iterable $resolvers)
     {
         $this->resolvers = $resolvers;
     }
 
-    public function resolve(NotificationInterface $notification, array $context = []): iterable
-    {
+    public function resolve(
+        NotificationInterface $notification,
+        array $context = []
+    ): iterable {
         foreach ($this->resolvers as $resolver) {
             $channelSubscriptions = $resolver->resolve($notification, $context);
             foreach ($channelSubscriptions as $channelSubscription) {

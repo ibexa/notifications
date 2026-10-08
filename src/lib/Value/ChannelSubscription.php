@@ -14,8 +14,10 @@ final class ChannelSubscription
 
     private string $channel;
 
-    public function __construct(string $notificationType, string $channel)
-    {
+    public function __construct(
+        string $notificationType,
+        string $channel
+    ) {
         $this->notificationType = $notificationType;
         $this->channel = $channel;
     }

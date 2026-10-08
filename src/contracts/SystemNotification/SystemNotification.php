@@ -43,8 +43,10 @@ final class SystemNotification extends Notification implements SystemNotificatio
         $this->content($content);
     }
 
-    public function asSystemNotification(UserRecipientInterface $recipient, ?string $transport = null): SystemMessage
-    {
+    public function asSystemNotification(
+        UserRecipientInterface $recipient,
+        ?string $transport = null
+    ): SystemMessage {
         $context = [
             'subject' => $this->getSubject(),
             'content' => $this->getContent(),
