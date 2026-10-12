@@ -28,8 +28,10 @@ final class SystemMessage implements MessageInterface
     /**
      * @param array<string, mixed> $context
      */
-    public function __construct(UserReference $user, array $context = [])
-    {
+    public function __construct(
+        UserReference $user,
+        array $context = []
+    ) {
         $this->user = $user;
         $this->context = $context;
     }
