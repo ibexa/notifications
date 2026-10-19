@@ -47,8 +47,11 @@ final class NotificationsConfigParser extends AbstractParser
     /**
      * @param array<string, array<string, mixed>> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['notifier'])) {
             return;
         }
@@ -71,8 +74,10 @@ final class NotificationsConfigParser extends AbstractParser
     /**
      * @param array<string, mixed> $config
      */
-    public function postMap(array $config, ContextualizerInterface $contextualizer): void
-    {
+    public function postMap(
+        array $config,
+        ContextualizerInterface $contextualizer
+    ): void {
         foreach (self::MAPPED_SETTINGS as $setting) {
             $contextualizer->mapConfigArray(sprintf('notifications.%s', $setting), $config);
         }

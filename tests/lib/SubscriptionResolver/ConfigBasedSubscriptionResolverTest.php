@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Notifications\Value\NotificationInterface;
 use Ibexa\Notifications\SubscriptionResolver\ConfigBasedSubscriptionResolver;
 use Ibexa\Notifications\Value\ChannelSubscription;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +22,7 @@ final class ConfigBasedSubscriptionResolverTest extends TestCase
 {
     private ConfigBasedSubscriptionResolver $resolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ConfigResolverInterface|MockObject */
     private ConfigResolverInterface $configResolver;
 
     public function setUp(): void
