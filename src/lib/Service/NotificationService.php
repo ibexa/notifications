@@ -10,6 +10,7 @@ namespace Ibexa\Notifications\Service;
 
 use Ibexa\Contracts\Notifications\Service\NotificationServiceInterface;
 use Ibexa\Contracts\Notifications\Value\NotificationInterface;
+use Ibexa\Contracts\Notifications\Value\RecipientInterface;
 use Ibexa\Notifications\Mapper\NotificationMapperInterface;
 use Ibexa\Notifications\Mapper\RecipientMapperInterface;
 use Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface;
@@ -39,10 +40,12 @@ final class NotificationService implements NotificationServiceInterface
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Notifications\Value\RecipientInterface> $recipients
+     * @param array<RecipientInterface> $recipients
      */
-    public function send(NotificationInterface $notification, array $recipients = []): void
-    {
+    public function send(
+        NotificationInterface $notification,
+        array $recipients = []
+    ): void {
         $channels = array_map(
             static fn (
                 ChannelSubscription $channelSubscription
