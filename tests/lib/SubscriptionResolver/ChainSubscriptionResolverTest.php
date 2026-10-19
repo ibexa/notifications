@@ -12,6 +12,7 @@ use Ibexa\Contracts\Notifications\Value\NotificationInterface;
 use Ibexa\Notifications\SubscriptionResolver\ChainSubscriptionResolver;
 use Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ChainSubscriptionResolverTest extends TestCase
@@ -21,8 +22,10 @@ final class ChainSubscriptionResolverTest extends TestCase
      * @param array<string|null> $expectedChannels
      */
     #[DataProvider('provideForTestResolve')]
-    public function testResolve(array $resolverChannels, array $expectedChannels): void
-    {
+    public function testResolve(
+        array $resolverChannels,
+        array $expectedChannels
+    ): void {
         $resolvers = array_map(
             fn (array $channels): SubscriptionResolverInterface => $this->mockResolver($channels),
             $resolverChannels
@@ -64,7 +67,7 @@ final class ChainSubscriptionResolverTest extends TestCase
     /**
      * @param array<string|null> $channels
      *
-     * @return \Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @return SubscriptionResolverInterface&MockObject
      */
     private function mockResolver(array $channels): SubscriptionResolverInterface
     {

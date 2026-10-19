@@ -28,9 +28,9 @@ final class SystemNotificationChannelTest extends TestCase
 {
     private const EXAMPLE_USER_ID = 12;
 
-    private Repository&Stub $repository;
+    private Repository & Stub $repository;
 
-    private NotificationService&MockObject $notificationService;
+    private NotificationService & MockObject $notificationService;
 
     private SystemNotificationChannel $channel;
 
@@ -43,8 +43,11 @@ final class SystemNotificationChannelTest extends TestCase
     }
 
     #[DataProvider('dataProviderForTestSupports')]
-    public function testSupports(bool $supportedNotification, bool $supportedRecipient, bool $expectedResult): void
-    {
+    public function testSupports(
+        bool $supportedNotification,
+        bool $supportedRecipient,
+        bool $expectedResult
+    ): void {
         $notification = $supportedNotification
             ? $this->createSupportedNotification()
             : self::createStub(Notification::class);
@@ -75,7 +78,7 @@ final class SystemNotificationChannelTest extends TestCase
         $expectedCreateStruct->type = 'example';
 
         $this->notificationService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('createNotification')
             ->with($expectedCreateStruct)
             ->willReturn(new SystemNotification());
@@ -93,7 +96,7 @@ final class SystemNotificationChannelTest extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Notifier\Notification\Notification&\Ibexa\Contracts\Notifications\SystemNotification\SystemNotificationInterface
+     * @return Notification&SystemNotificationInterface
      */
     private function createSupportedNotification(?SystemMessage $message = null): Notification
     {
