@@ -17,6 +17,9 @@ use Ibexa\Contracts\Notifications\SystemNotification\SystemMessage;
 use Ibexa\Contracts\Notifications\SystemNotification\SystemNotificationInterface;
 use Ibexa\Contracts\Notifications\Value\Recipent\UserRecipientInterface;
 use Ibexa\Notifications\SystemNotification\SystemNotificationChannel;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
@@ -25,52 +28,46 @@ final class SystemNotificationChannelTest extends TestCase
 {
     private const EXAMPLE_USER_ID = 12;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository&\PHPUnit\Framework\MockObject\MockObject */
-    private Repository $repository;
+    private Repository & Stub $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService&\PHPUnit\Framework\MockObject\MockObject */
-    private NotificationService $notificationService;
+    private NotificationService & MockObject $notificationService;
 
     private SystemNotificationChannel $channel;
 
     protected function setUp(): void
     {
-        $this->repository = $this->createMock(Repository::class);
+        $this->repository = self::createStub(Repository::class);
         $this->notificationService = $this->createMock(NotificationService::class);
 
         $this->channel = new SystemNotificationChannel($this->repository, $this->notificationService);
     }
 
-    /**
-     * @dataProvider dataProviderForTestSupports
-     */
-    public function testSupports(Notification $notification, RecipientInterface $recipient, bool $expectedResult): void
-    {
+    #[DataProvider('dataProviderForTestSupports')]
+    public function testSupports(
+        bool $supportedNotification,
+        bool $supportedRecipient,
+        bool $expectedResult
+    ): void {
+        $notification = $supportedNotification
+            ? $this->createSupportedNotification()
+            : self::createStub(Notification::class);
+        $recipient = $supportedRecipient
+            ? $this->createSupportedRecipient()
+            : self::createStub(RecipientInterface::class);
+
         self::assertEquals($expectedResult, $this->channel->supports($notification, $recipient));
     }
 
     /**
-     * @return iterable<string, array{\Symfony\Component\Notifier\Notification\Notification, \Symfony\Component\Notifier\Recipient\RecipientInterface, bool}>
+     * @return iterable<string, array{bool, bool, bool}>
      */
-    public function dataProviderForTestSupports(): iterable
+    public static function dataProviderForTestSupports(): iterable
     {
-        yield 'supported' => [
-            $this->createSupportedNotification(),
-            $this->createSupportedRecipient(),
-            true,
-        ];
+        yield 'supported' => [true, true, true];
 
-        yield 'unsupported recipient' => [
-            $this->createSupportedNotification(),
-            $this->createMock(RecipientInterface::class),
-            false,
-        ];
+        yield 'unsupported recipient' => [true, false, false];
 
-        yield 'unsupported notification' => [
-            $this->createMock(Notification::class),
-            $this->createSupportedRecipient(),
-            false,
-        ];
+        yield 'unsupported notification' => [false, true, false];
     }
 
     public function testNotify(): void
@@ -81,7 +78,7 @@ final class SystemNotificationChannelTest extends TestCase
         $expectedCreateStruct->type = 'example';
 
         $this->notificationService
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('createNotification')
             ->with($expectedCreateStruct)
             ->willReturn(new SystemNotification());
@@ -99,7 +96,7 @@ final class SystemNotificationChannelTest extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Notifier\Notification\Notification&\Ibexa\Contracts\Notifications\SystemNotification\SystemNotificationInterface
+     * @return Notification&SystemNotificationInterface
      */
     private function createSupportedNotification(?SystemMessage $message = null): Notification
     {

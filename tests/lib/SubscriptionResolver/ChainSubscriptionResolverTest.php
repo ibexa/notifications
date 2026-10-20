@@ -11,21 +11,29 @@ namespace Ibexa\Tests\Notifications\SubscriptionResolver;
 use Ibexa\Contracts\Notifications\Value\NotificationInterface;
 use Ibexa\Notifications\SubscriptionResolver\ChainSubscriptionResolver;
 use Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ChainSubscriptionResolverTest extends TestCase
 {
     /**
-     * @dataProvider provideForTestResolve
-     *
-     * @param array<\Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface> $resolvers
+     * @param array<array<string|null>> $resolverChannels
      * @param array<string|null> $expectedChannels
      */
-    public function testResolve(array $resolvers, array $expectedChannels): void
-    {
+    #[DataProvider('provideForTestResolve')]
+    public function testResolve(
+        array $resolverChannels,
+        array $expectedChannels
+    ): void {
+        $resolvers = array_map(
+            fn (array $channels): SubscriptionResolverInterface => $this->mockResolver($channels),
+            $resolverChannels
+        );
+
         $subscriptionResolver = new ChainSubscriptionResolver($resolvers);
 
-        $notification = $this->createMock(NotificationInterface::class);
+        $notification = self::createStub(NotificationInterface::class);
         $channels = $subscriptionResolver->resolve($notification);
 
         self::assertSame($expectedChannels, iterator_to_array($channels));
@@ -33,24 +41,24 @@ final class ChainSubscriptionResolverTest extends TestCase
 
     /**
      * @return iterable<string, array{
-     *     array<\Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface|null>,
+     *     array<array<string|null>>,
      *     array<string>,
      * }>
      */
-    public function provideForTestResolve(): iterable
+    public static function provideForTestResolve(): iterable
     {
         yield 'returns all results' => [
             [
-                $this->mockResolver(['sms', 'mail']),
-                $this->mockResolver(['push']),
+                ['sms', 'mail'],
+                ['push'],
             ],
             ['sms', 'mail', 'push'],
         ];
 
         yield 'skips empty channels' => [
             [
-                $this->mockResolver(['sms', null, null]),
-                $this->mockResolver([null, 'push', null]),
+                ['sms', null, null],
+                [null, 'push', null],
             ],
             ['sms', 'push'],
         ];
@@ -59,7 +67,7 @@ final class ChainSubscriptionResolverTest extends TestCase
     /**
      * @param array<string|null> $channels
      *
-     * @return \Ibexa\Notifications\SubscriptionResolver\SubscriptionResolverInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @return SubscriptionResolverInterface&MockObject
      */
     private function mockResolver(array $channels): SubscriptionResolverInterface
     {

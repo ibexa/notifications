@@ -21,8 +21,10 @@ final class ConfigBasedSubscriptionResolver implements SubscriptionResolverInter
         $this->configResolver = $configResolver;
     }
 
-    public function resolve(NotificationInterface $notification, array $context = []): iterable
-    {
+    public function resolve(
+        NotificationInterface $notification,
+        array $context = []
+    ): iterable {
         $config = $this->configResolver->getParameter('notifications.subscriptions');
         $notificationType = $notification->getType();
 

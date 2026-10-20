@@ -12,6 +12,8 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Notifications\Value\NotificationInterface;
 use Ibexa\Notifications\SubscriptionResolver\ConfigBasedSubscriptionResolver;
 use Ibexa\Notifications\Value\ChannelSubscription;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +23,7 @@ final class ConfigBasedSubscriptionResolverTest extends TestCase
 {
     private ConfigBasedSubscriptionResolver $resolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ConfigResolverInterface|MockObject */
     private ConfigResolverInterface $configResolver;
 
     public function setUp(): void
@@ -31,12 +33,11 @@ final class ConfigBasedSubscriptionResolverTest extends TestCase
     }
 
     /**
-     * @dataProvider provideForTestResolve
-     *
      * @phpstan-param TSubscriptionsConfig $subscriptions
      *
      * @param array<string> $expectedChannels
      */
+    #[DataProvider('provideForTestResolve')]
     public function testResolve(
         array $subscriptions,
         string $notificationType,
@@ -71,7 +72,7 @@ final class ConfigBasedSubscriptionResolverTest extends TestCase
      *      array<string>,
      *  }>
      */
-    public function provideForTestResolve(): iterable
+    public static function provideForTestResolve(): iterable
     {
         $config = [
             NotificationInterface::class => [
